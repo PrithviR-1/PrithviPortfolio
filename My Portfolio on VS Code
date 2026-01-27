@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player 1 - Matrix Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --matrix-green: #00FF41; 
+            --dark-green: #003B00;
+            --bg-black: #0d0d0d;
+        }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--matrix-green);
+            font-family: 'VT323', monospace;
+            margin: 0;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+        }
+
+        h1, h2, .nav-btn {
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+        }
+
+        /* --- NEW GLITCH ANIMATION --- */
+        .glitch-text {
+            position: relative;
+            display: inline-block;
+            animation: matrix-glitch 5s infinite; /* Runs every 5 seconds */
+        }
+
+        @keyframes matrix-glitch {
+            0%, 90%, 100% { transform: translate(0); text-shadow: 0 0 10px var(--matrix-green); }
+            91% { transform: translate(-2px, 1px); text-shadow: 2px 0 white, -1px 0 var(--matrix-green); }
+            92% { transform: translate(2px, -1px); text-shadow: -2px 0 white, 1px 0 var(--matrix-green); }
+            93% { transform: translate(0); }
+            94% { transform: scaleY(1.1) skewX(5deg); opacity: 0.8; }
+            95% { transform: scaleY(1) skewX(0); opacity: 1; }
+        }
+
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
+            z-index: 10;
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+
+        nav {
+            margin-top: 30px;
+            border: 2px solid var(--matrix-green);
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 20px var(--dark-green);
+            z-index: 2;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--matrix-green);
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            color: white;
+            text-shadow: 0 0 8px var(--matrix-green);
+            background: rgba(0, 255, 65, 0.1);
+        }
+
+        .content-container {
+            width: 80%;
+            max-width: 800px;
+            margin-top: 50px;
+            padding: 30px;
+            border: 1px solid var(--matrix-green);
+            background: rgba(0, 0, 0, 0.85); 
+            min-height: 400px;
+            box-shadow: 0 0 30px rgba(0, 59, 0, 0.5);
+            z-index: 2;
+        }
+
+        .page { display: none; }
+        .active { 
+            display: block; 
+            animation: flicker 0.1s infinite alternate, matrix-glitch 8s infinite; 
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.95; }
+            100% { opacity: 1; }
+        }
+
+        .video-box {
+            border: 1px dashed var(--matrix-green);
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        iframe {
+            border: 1px solid var(--matrix-green);
+            max-width: 100%;
+        }
+
+        .highlight { color: white; text-shadow: 0 0 5px var(--matrix-green); }
+        
+        .btn-action {
+            background: transparent;
+            color: var(--matrix-green);
+            border: 1px solid var(--matrix-green);
+            padding: 10px 20px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        .btn-action:hover {
+            background: var(--matrix-green);
+            color: black;
+            box-shadow: 0 0 15px var(--matrix-green);
+        }
+
+        input, textarea {
+            background: #000;
+            color: var(--matrix-green);
+            border: 1px solid var(--matrix-green);
+            width: 100%;
+            padding: 5px;
+            font-family: 'VT323', monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="matrix-bg"></canvas>
+
+    <header>
+        <h1 class="glitch-text" style="color: var(--matrix-green); text-align: center; margin-top: 40px; text-shadow: 0 0 10px var(--matrix-green);">
+            WELCOME TO PRITHVI REDDY'S PORTFOLIO
+        </h1>
+    </header>
+
+    <nav>
+        <button class="nav-btn" onclick="showPage('about')">ABOUT</button>
+        <button class="nav-btn" onclick="showPage('projects')">PROJECTS</button>
+        <button class="nav-btn" onclick="showPage('resume')">RESUME</button>
+        <button class="nav-btn" onclick="showPage('contact')">CONTACT</button>
+    </nav>
+
+    <div class="content-container">
+        
+        <section id="about" class="page active">
+            <h2 class="glitch-text">> MISSION_LOG</h2>
+            <p>Hi, my name is Prithvi. I am currently a high school freshman student in Emerald High School. My journey started with a curiosity for how games and apps are built, and I am currently enrolled in a Computer Science Essentials course which is the beginning of the computer sciences pathway in EHS. Additionally, I want to join extracurriculars and clubs, and also am thinking of joining computer science based competitions such as the Hackathon.</p>
+            <p>Current Status: <span class="highlight">Curious, Innovative, Academic</span></p>
+        </section>
+
+        <section id="projects" class="page">
+            <h2 class="glitch-text">> QUEST_LOG</h2>
+            <div class="video-box">
+                <h3>Level 1: Project Demo</h3>
+                <iframe 
+                    src="https://drive.google.com/file/d/YOUR_VIDEO_ID_HERE/preview" 
+                    width="560" 
+                    height="315" 
+                    allow="autoplay">
+                </iframe>
+                <p>Above is a demo of my latest work. Decrypting data streams...</p>
+            </div>
+        </section>
+
+        <section id="resume" class="page">
+            <h2 class="glitch-text">> STAT_SHEET</h2>
+            <ul>
+                <li><strong>Strength:</strong> HTML/CSS, Basic Python</li>
+                <li><strong>Agility:</strong> Fast Learner, Problem Solver</li>
+                <li><strong>Experience:</strong>
+                    <ul>
+                        <li>School Coding Enjoyer (2026-Present)</li>
+                        <li>Completing Computer Science Essentials Course</li>
+                    </ul>
+                </li>
+            </ul>
+            <a href="#" class="btn-action">DECRYPT_FULL_RESUME.PDF</a>
+        </section>
+
+        <section id="contact" class="page">
+            <h2 class="glitch-text">> SEND_SIGNAL</h2>
+            <p>Want to collab? My email is <span class="highlight">reddy2576@mydusd.org</span>. Reach out via the terminal below:</p>
+            <form>
+                <p>EMAIL: <input type="text"></p>
+                <p>MESSAGE: <br><textarea rows="4"></textarea></p>
+                <button type="button" class="btn-action" onclick="alert('Message Uplink Established!')">TRANSMIT DATA</button>
+            </form>
+        </section>
+
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        const canvas = document.getElementById('matrix-bg');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const binary = "01";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize; 
+
+        const drops = [];
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function drawRain() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#00FF41"; 
+            ctx.font = fontSize + "px monospace";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = binary.charAt(Math.floor(Math.random() * binary.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawRain, 35);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+
+</body>
+</html>
